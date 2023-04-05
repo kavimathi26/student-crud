@@ -18,7 +18,7 @@ public class StudentPersonalDetails {
         private String name;
         @Field(name = "batch")
         private short batch;
-        @Field(name = "gender")
+        @Field("gender")
         private String gender;
         @Field(name = "blood_group")
         private String bloodGroup;

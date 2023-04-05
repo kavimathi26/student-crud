@@ -10,6 +10,6 @@ public class FacultyDetailsRepository {
     @Autowired
     MongoTemplate mongoTemplate;
     public void enrollFaculty(FacultyDetails facultyDetails) {
-        mongoTemplate.save(facultyDetails);
+            mongoTemplate.save(facultyDetails);
     }
 }

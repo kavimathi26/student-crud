@@ -1,10 +1,12 @@
 package com.college.data.controller;
 
-import com.college.data.entity.CoursesAvailable;
+import com.college.data.entity.ApiResponse;
 import com.college.data.entity.FacultyDetails;
-import com.college.data.service.CoursesAvailableService;
-import com.college.data.service.FacultyDetailsService;
+import com.college.data.service.impl.FacultyDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/faculty")
 public class FacultyDetailsController {
     @Autowired
-    FacultyDetailsService facultyDetailsService;
+    FacultyDetailsServiceImpl facultyDetailsServiceImpl;
     @PostMapping("/enroll")
-    public String enrollFaculty(@RequestBody FacultyDetails facultyDetails) {
-        facultyDetailsService.enrollFaculty(facultyDetails);
-        return "Faculty Enrolled";
+    public ResponseEntity<ApiResponse> enrollFaculty(@RequestBody FacultyDetails facultyDetails) {
+        ApiResponse apiResponse = new ApiResponse();
+        try {
+            facultyDetailsServiceImpl.enrollFaculty(facultyDetails);
+            apiResponse.setMessage("Faculty Details Enrolled");
+            apiResponse.setErrorCode("No Error");
+            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+        }catch (DataIntegrityViolationException e){
+            apiResponse.setMessage(e.getMessage());
+            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
+            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        }
     }
 }
