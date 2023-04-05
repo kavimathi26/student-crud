@@ -1,21 +1,27 @@
 package com.college.data.entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "courses_available")
+@Document(collection = "courses_available") //constant file
 
 public class CoursesAvailable {
+
+    @Field(name = "course_regulation_code")
+    private String courseRegulationCode;
+    @Field(name = "course_title")
+    private String courseTitle;
+    @Field(name = "course_credit")
+    private String courseCredit;
+    @Field(name = "course_branch")
+    private String courseBranch;
+
     public CoursesAvailable(String courseRegulationCode, String courseTitle, String courseCredit, String courseBranch) {
         this.courseRegulationCode = courseRegulationCode;
         this.courseTitle = courseTitle;
         this.courseCredit = courseCredit;
         this.courseBranch = courseBranch;
     }
-
-    private String courseRegulationCode; //constant
-    private String courseTitle;
-    private String courseCredit;
-    private String courseBranch;
 
     public String getCourseRegulationCode() {
         return courseRegulationCode;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController("/courses")
-//@RequestMapping("/courses",)
+@RestController
+@RequestMapping("/courses")
 public class CoursesAvailableController {
     @Autowired
     CoursesAvailableService coursesAvailableService;

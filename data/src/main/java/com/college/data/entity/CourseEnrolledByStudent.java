@@ -1,11 +1,15 @@
 package com.college.data.entity;
+
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class CourseEnrolledByStudent {
     public CourseEnrolledByStudent(String courseCode, short marksScored) {
         this.courseCode = courseCode;
         this.marksScored = marksScored;
     }
-
+    @Field(name = "course_code")
     private String courseCode;
+    @Field(name = "marks_scored")
     private short marksScored;
 
 

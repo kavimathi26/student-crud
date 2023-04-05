@@ -8,10 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Setter
 public class Address {
 
-    @Field("xyz")
+    @Field(name = "door_number")
     private short doorNumber;
+    @Field(name = "street_name")
     private String streetName;
+    @Field(name = "city_name")
     private String cityName;
+    @Field(name = "district")
     private String district;
+    @Field(name = "pin_code")
     private int pinCode;
 }
