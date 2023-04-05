@@ -4,6 +4,7 @@ import com.college.data.entity.ApiResponse;
 import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.service.impl.StudentPersonalDetailsServiceImpl;
 import com.college.data.service.impl.StudentPersonalDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("studentPersonalDetails")
+@RequiredArgsConstructor
 public class StudentPersonalDetailsController {
-    @Autowired
-    StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
+    private final StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
 
     //    @PostMapping("/enroll")
 //    public String enrollStudentPersonalDetails(@RequestBody StudentPersonalDetails studentPersonalDetails) {

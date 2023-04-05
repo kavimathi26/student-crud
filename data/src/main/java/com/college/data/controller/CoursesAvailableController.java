@@ -3,6 +3,7 @@ package com.college.data.controller;
 import com.college.data.entity.ApiResponse;
 import com.college.data.entity.CoursesAvailable;
 import com.college.data.service.impl.CoursesAvailableServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/courses")
+@RequiredArgsConstructor
 public class CoursesAvailableController {
-    @Autowired
-    CoursesAvailableServiceImpl coursesAvailableServiceImpl;
+    private final CoursesAvailableServiceImpl coursesAvailableServiceImpl;
     @PostMapping("/enroll")
     public ResponseEntity<ApiResponse> enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
         ApiResponse apiResponse = new ApiResponse();
