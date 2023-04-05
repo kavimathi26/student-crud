@@ -1,10 +1,12 @@
 package com.college.data.entity;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 //@Data
 @Getter
@@ -12,8 +14,10 @@ import java.time.LocalDate;
 @Document(collection = "student_personal_details")
 
 public class StudentPersonalDetails {
+        @NotBlank
         @Field(name = "roll_no")
         private String rollNo;
+        @NotBlank
         @Field(name = "name")
         private String name;
         @Field(name = "batch")

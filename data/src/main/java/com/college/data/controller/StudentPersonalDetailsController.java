@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("studentPersonalDetails")
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class StudentPersonalDetailsController {
 //        return "Student Enrolled";
 //    }
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@RequestBody StudentPersonalDetails studentPersonalDetails) {
+    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
