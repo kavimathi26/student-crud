@@ -26,7 +26,7 @@ public class StudentPersonalDetailsController {
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
 
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @NotBlank @RequestBody StudentPersonalDetails studentPersonalDetails) {
+    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
@@ -34,7 +34,6 @@ public class StudentPersonalDetailsController {
             apiResponse.setErrorCode("No Error");
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
-//            apiResponse.setMessage(e.getMessage());
             apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

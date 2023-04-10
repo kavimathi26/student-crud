@@ -1,24 +1,21 @@
 package com.college.data.entity;
 
+import com.college.data.dao.StudentPersonalDetailsDAO;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-import static com.college.data.entity.ConstantFile.PERSONAL;
 
 //@Data
 @Getter
 @Setter
-@Document(collection = PERSONAL)
+@Document(collection = StudentPersonalDetailsDAO.PERSONAL)
 
-public class StudentPersonalDetails implements ConstantFile{
+public class StudentPersonalDetails{
         @NotBlank(message = "roll no may not be blank")
         @Field(name = "roll_no")
         private String rollNo;

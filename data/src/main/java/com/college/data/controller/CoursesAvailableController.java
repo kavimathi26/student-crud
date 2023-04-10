@@ -4,7 +4,6 @@ import com.college.data.entity.ApiResponse;
 import com.college.data.entity.CoursesAvailable;
 import com.college.data.service.impl.CoursesAvailableServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CoursesAvailableController {
     private final CoursesAvailableServiceImpl coursesAvailableServiceImpl;
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollCourses(@RequestBody CoursesAvailable coursesAvailable) {
+    public ResponseEntity<ApiResponse> enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
@@ -28,15 +27,13 @@ public class CoursesAvailableController {
             apiResponse.setErrorCode("No Error");
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);        }
         catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage(e.getMessage());
-            apiResponse.setErrorCode(HttpStatus.ALREADY_REPORTED.name());
+            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {
-            return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+            apiResponse.setMessage(e.getMessage());
+            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
+            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    public void enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
-//        coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
-//    }
 }

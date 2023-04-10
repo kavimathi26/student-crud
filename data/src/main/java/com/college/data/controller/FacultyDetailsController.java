@@ -27,9 +27,13 @@ public class FacultyDetailsController {
             apiResponse.setErrorCode("No Error");
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         }catch (DataIntegrityViolationException e){
-            apiResponse.setMessage(e.getMessage());
             apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
+            apiResponse.setMessage(e.getMessage());
+            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
+            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

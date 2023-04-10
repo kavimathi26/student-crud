@@ -1,16 +1,11 @@
 package com.college.data.service.impl;
 
-import com.college.data.entity.ApiResponse;
 import com.college.data.entity.CoursesAvailable;
-import com.college.data.repository.CoursesAvailableRepository;
+import com.college.data.dao.impl.CoursesAvailableDAOImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -19,12 +14,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CoursesAvailableServiceImpl {
     private final MongoTemplate mongoTemplate;
-    private final CoursesAvailableRepository coursesAvailableRepository;
+    private final CoursesAvailableDAOImpl coursesAvailableDAOImpl;
     public void enrollCourse(CoursesAvailable coursesAvailable) {
         Query query = new Query().addCriteria(Criteria.where("course_regulation_code").is(coursesAvailable.getCourseRegulationCode()));
 //        System.out.println(mongoTemplate.find(query,CoursesAvailable.class).get(0).getCourseRegulationCode());
         if(mongoTemplate.find(query,CoursesAvailable.class).get(0).getCourseRegulationCode()!=coursesAvailable.getCourseRegulationCode()) {
-            coursesAvailableRepository.enrollCourse(coursesAvailable);
+            coursesAvailableDAOImpl.enrollCourse(coursesAvailable);
         }
         else { //throw
             System.out.println("Course is already enrolled");

@@ -1,14 +1,14 @@
 package com.college.data.entity;
 
+import com.college.data.dao.CoursesAvailableDAO;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import static com.college.data.entity.ConstantFile.COURSE;
 
-@Document(collection = COURSE)
+@Document(collection = CoursesAvailableDAO.COURSE)
 @Data
-public class CoursesAvailable implements ConstantFile {
+public class CoursesAvailable {
 
     @Field(name = "course_regulation_code")
     private String courseRegulationCode;

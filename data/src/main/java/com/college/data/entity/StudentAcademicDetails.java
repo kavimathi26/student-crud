@@ -1,5 +1,6 @@
 package com.college.data.entity;
 
+import com.college.data.dao.StudentAcademicDetailsDAO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,13 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-import static com.college.data.entity.ConstantFile.ACADEMIC;
-
 @Getter
 @Setter
-@Document(collection = ACADEMIC)
+@Document(collection = StudentAcademicDetailsDAO.ACADEMIC)
 
-public class StudentAcademicDetails implements ConstantFile{
+public class StudentAcademicDetails{
     @Field(name = "roll_no")
     private String rollNo;
     @Field(name = "department")

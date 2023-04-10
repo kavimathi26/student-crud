@@ -1,17 +1,16 @@
 package com.college.data.entity;
 
+import com.college.data.dao.FacultyAvailableDAO;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.college.data.entity.ConstantFile.FACULTY;
 
-@Document(collection = FACULTY)
+@Document(collection = FacultyAvailableDAO.FACULTY)
 
-public class FacultyDetails implements ConstantFile {
+public class FacultyDetails{
     public FacultyDetails(String facultyId, String name, String degree, LocalDate dob, String passedOutYear, String department, String designation, List<String> coursesHandled) {
         this.facultyId = facultyId;
         this.name = name;
