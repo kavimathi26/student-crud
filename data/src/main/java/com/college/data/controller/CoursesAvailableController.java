@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CoursesAvailableController {
     private final CoursesAvailableServiceImpl coursesAvailableServiceImpl;
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
+    public ResponseEntity<ApiResponse> enrollCourses(@RequestBody CoursesAvailable coursesAvailable) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
@@ -29,11 +29,14 @@ public class CoursesAvailableController {
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);        }
         catch (DataIntegrityViolationException e) {
             apiResponse.setMessage(e.getMessage());
-            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
+            apiResponse.setErrorCode(HttpStatus.ALREADY_REPORTED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {
             return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    public void enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
+//        coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
+//    }
 }

@@ -15,20 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("studentPersonalDetails")
 @RequiredArgsConstructor
 public class StudentPersonalDetailsController {
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
-
-    //    @PostMapping("/enroll")
-//    public String enrollStudentPersonalDetails(@RequestBody StudentPersonalDetails studentPersonalDetails) {
-//        studentPersonalDetailsService.enrollStudentPersonalDetails(studentPersonalDetails);
-//        return "Student Enrolled";
-//    }
+    
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
+    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@NotBlank @Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
@@ -36,7 +34,7 @@ public class StudentPersonalDetailsController {
             apiResponse.setErrorCode("No Error");
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage(e.getMessage());
+//            apiResponse.setMessage(e.getMessage());
             apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -7,11 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
+import static com.college.data.entity.ConstantFile.ACADEMIC;
+
 @Getter
 @Setter
-@Document(collection = "student_academic_details")
+@Document(collection = ACADEMIC)
 
-public class StudentAcademicDetails {
+public class StudentAcademicDetails implements ConstantFile{
     @Field(name = "roll_no")
     private String rollNo;
     @Field(name = "department")

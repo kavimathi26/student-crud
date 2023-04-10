@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "faculty_details")
+import static com.college.data.entity.ConstantFile.FACULTY;
 
-public class FacultyDetails {
+@Document(collection = FACULTY)
+
+public class FacultyDetails implements ConstantFile {
     public FacultyDetails(String facultyId, String name, String degree, LocalDate dob, String passedOutYear, String department, String designation, List<String> coursesHandled) {
         this.facultyId = facultyId;
         this.name = name;

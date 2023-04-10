@@ -7,14 +7,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+
+import static com.college.data.entity.ConstantFile.PERSONAL;
+
 //@Data
 @Getter
 @Setter
-@Document(collection = "student_personal_details")
+@Document(collection = PERSONAL)
 
-public class StudentPersonalDetails {
-        @NotBlank
+public class StudentPersonalDetails implements ConstantFile{
+        @NotBlank(message = "roll no may not be blank")
+//        @NotEmpty(message = "{roll_no.notempty}")
+//        @NotNull(message = "roll_no is empty")
         @Field(name = "roll_no")
         private String rollNo;
         @NotBlank
