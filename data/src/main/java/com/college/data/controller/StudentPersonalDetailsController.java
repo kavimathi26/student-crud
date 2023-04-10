@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("studentPersonalDetails")
@@ -26,6 +23,23 @@ public class StudentPersonalDetailsController {
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
 
     @PostMapping("/enroll")
+//    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
+//        ApiResponse apiResponse = new ApiResponse();
+//        try {
+//            studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
+//            apiResponse.setMessage("Personal Details of Student Enrolled");
+//            apiResponse.setErrorCode("No Error");
+//            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+//        } catch (DataIntegrityViolationException e) {
+//            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
+//            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            apiResponse.setMessage(e.getMessage());
+//            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
+//            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    } original code
+
     public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
@@ -34,8 +48,8 @@ public class StudentPersonalDetailsController {
             apiResponse.setErrorCode("No Error");
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
-            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+            apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
+            return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
         } catch (Exception e) {
             apiResponse.setMessage(e.getMessage());
             apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());

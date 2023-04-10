@@ -28,8 +28,8 @@ public class StudentAcademicDetailsController {
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         }
         catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage(HttpStatus.ALREADY_REPORTED.name());
-            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+            apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
+            return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
         }
         catch (Exception e) {
             apiResponse.setMessage(e.getMessage());
