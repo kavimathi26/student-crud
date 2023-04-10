@@ -20,8 +20,6 @@ import static com.college.data.entity.ConstantFile.PERSONAL;
 
 public class StudentPersonalDetails implements ConstantFile{
         @NotBlank(message = "roll no may not be blank")
-//        @NotEmpty(message = "{roll_no.notempty}")
-//        @NotNull(message = "roll_no is empty")
         @Field(name = "roll_no")
         private String rollNo;
         @NotBlank

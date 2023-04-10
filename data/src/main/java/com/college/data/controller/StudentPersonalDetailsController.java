@@ -24,9 +24,9 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsController {
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsServiceImpl;
-    
+
     @PostMapping("/enroll")
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@NotBlank @Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
+    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @NotBlank @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
