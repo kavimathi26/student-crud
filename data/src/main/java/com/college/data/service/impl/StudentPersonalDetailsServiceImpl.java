@@ -1,7 +1,6 @@
 package com.college.data.service.impl;
 
 import com.college.data.entity.ApiResponse;
-import com.college.data.entity.StudentAcademicDetails;
 import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.dao.impl.StudentPersonalDetailsDAOImpl;
 import com.college.data.service.StudentPersonalDetailsService;
@@ -22,7 +21,7 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
         try {
             if(!(Objects.nonNull(studentPersonalDetailsDAOImpl.findStudentDetail(studentPersonalDetails)))) {
                 studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
-                apiResponse.setMessage("Personal Details of Student Enrolled");
+                apiResponse.setMessage("Personal Details of Student Enrolled with Roll no: "+studentPersonalDetails.getRollNo());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
             }else {
                 throw new DataIntegrityViolationException("");

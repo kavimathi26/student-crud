@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Objects;
 
 
 @Repository
@@ -24,5 +23,8 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
     public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
             mongoTemplate.save(studentPersonalDetails);
 //            mongoTemplate.upsert(); //create + update - based on unique index
+    }
+    public void updateStudentPersonalDetails() {
+
     }
 }

@@ -4,8 +4,6 @@ import com.college.data.entity.ApiResponse;
 import com.college.data.entity.CoursesAvailable;
 import com.college.data.service.impl.CoursesAvailableServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,20 +18,6 @@ public class CoursesAvailableController {
     private final CoursesAvailableServiceImpl coursesAvailableServiceImpl;
     @PostMapping("/enroll")
     public ResponseEntity<ApiResponse> enrollCourse(@RequestBody CoursesAvailable coursesAvailable) {
-        ApiResponse apiResponse = new ApiResponse();
-        try {
-            coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
-            apiResponse.setMessage("Course Enrolled");
-            apiResponse.setErrorCode("No Error");
-            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);        }
-        catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
-            return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
-        }
-        catch (Exception e) {
-            apiResponse.setMessage(e.getMessage());
-            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
-            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return coursesAvailableServiceImpl.enrollCourse(coursesAvailable);
     }
 }

@@ -1,42 +1,39 @@
 package com.college.data.service.impl;
 
+import com.college.data.entity.ApiResponse;
 import com.college.data.entity.CoursesAvailable;
 import com.college.data.dao.impl.CoursesAvailableDAOImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 
 
 @Service
 @RequiredArgsConstructor
 public class CoursesAvailableServiceImpl {
-    private final MongoTemplate mongoTemplate;
+    ApiResponse apiResponse = new ApiResponse();
     private final CoursesAvailableDAOImpl coursesAvailableDAOImpl;
-    public void enrollCourse(CoursesAvailable coursesAvailable) {
-        Query query = new Query().addCriteria(Criteria.where("course_regulation_code").is(coursesAvailable.getCourseRegulationCode()));
-//        System.out.println(mongoTemplate.find(query,CoursesAvailable.class).get(0).getCourseRegulationCode());
-        if(mongoTemplate.find(query,CoursesAvailable.class).get(0).getCourseRegulationCode()!=coursesAvailable.getCourseRegulationCode()) {
-            coursesAvailableDAOImpl.enrollCourse(coursesAvailable);
+    public ResponseEntity<ApiResponse> enrollCourse(CoursesAvailable coursesAvailable) {
+        try {
+            if(!(Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(coursesAvailable)))) {
+                coursesAvailableDAOImpl.enrollCourse(coursesAvailable);
+                apiResponse.setMessage("Details of Course Enrolled with Faculty id: "+coursesAvailable.getCourseRegulationCode());
+                return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+            }else {
+                throw new DataIntegrityViolationException("");
+            }
+        } catch (DataIntegrityViolationException e) {
+            apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
+            return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
         }
-        else { //throw
-            System.out.println("Course is already enrolled");
+        catch (Exception e) {
+            apiResponse.setMessage(e.getMessage());
+            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
+            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
-//    public ResponseEntity<ApiResponse> enrollCourse(CoursesAvailable coursesAvailable) {
-//
-//        ApiResponse apiResponse = new ApiResponse();
-//        try {
-//            coursesAvailableRepository.enrollCourse(coursesAvailable);
-//            apiResponse.setMessage("Course Enrolled");
-//            apiResponse.setErrorCode("No Error");
-//            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
-//        }
-//        catch (DataIntegrityViolationException e) {
-//            return new ResponseEntity<>(apiResponse, HttpStatus.ALREADY_REPORTED);
-//        }
-//    }
 }
