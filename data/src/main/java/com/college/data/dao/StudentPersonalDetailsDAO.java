@@ -8,5 +8,5 @@ public interface StudentPersonalDetailsDAO {
     String PERSONAL = "student_personal_details";
 
 
-    ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
+    void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
 }

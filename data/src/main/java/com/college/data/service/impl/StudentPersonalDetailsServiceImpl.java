@@ -5,6 +5,7 @@ import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.dao.impl.StudentPersonalDetailsDAOImpl;
 import com.college.data.service.StudentPersonalDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
-    public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails){
+    public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
        studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
     }
 }

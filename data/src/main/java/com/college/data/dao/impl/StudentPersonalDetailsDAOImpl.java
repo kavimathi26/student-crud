@@ -18,26 +18,36 @@ import org.springframework.stereotype.Repository;
 public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO {
     private final MongoTemplate mongoTemplate;
     @Override
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-        ApiResponse apiResponse = new ApiResponse();
-        try {
+//    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
+//        ApiResponse apiResponse = new ApiResponse();
+//        try {
+//            Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
+//            mongoTemplate.findOne(query, StudentPersonalDetails.class);
+////            System.out.println("hi " + query);
+////            System.out.println("hello " + mongoTemplate.findOne(query, StudentPersonalDetails.class));
+//            if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
+//                System.out.println("Data Already Enrolled");
+//                throw new DataIntegrityViolationException("Data Already Enrolled Exception");
+//            } else {
+//                System.out.println("Data enrolled");
+//                mongoTemplate.save(studentPersonalDetails);
+//
+//            }
+//        }
+//        catch (Exception e) {
+//
+//        }
+//        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+//    }
+    public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
             Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
             mongoTemplate.findOne(query, StudentPersonalDetails.class);
+            mongoTemplate.save(studentPersonalDetails);
+
 //            System.out.println("hi " + query);
 //            System.out.println("hello " + mongoTemplate.findOne(query, StudentPersonalDetails.class));
-            apiResponse.setMessage("hi");
-            if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
-                System.out.println("Data Already Enrolled");
-                throw new DataIntegrityViolationException("Data Already Enrolled Exception");
-            } else {
-                System.out.println("Data enrolled");
-                mongoTemplate.save(studentPersonalDetails);
-
-            }
-        }
-        catch (ArithmeticException ae) {
-
-        }
-        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+//            if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
+//                mongoTemplate.save(studentPersonalDetails);
+//            }
     }
 }
