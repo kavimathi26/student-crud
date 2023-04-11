@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -18,14 +20,16 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
     public boolean checkForDuplicates(StudentPersonalDetails studentPersonalDetails) {
         Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
         if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
+//            Objects.nonNull() *
                 return false;
             }
         return true;
     }
     @Override
     public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-            Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
-            mongoTemplate.findOne(query, StudentPersonalDetails.class);
+//            Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
+//            mongoTemplate.findOne(query, StudentPersonalDetails.class);
             mongoTemplate.save(studentPersonalDetails);
+//            mongoTemplate.upsert(); //create + update - based on unique index
     }
 }

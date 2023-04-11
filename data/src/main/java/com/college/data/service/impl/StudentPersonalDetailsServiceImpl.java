@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
     public boolean enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-        studentPersonalDetailsDAOImpl.checkForDuplicates(studentPersonalDetails);
-        if(studentPersonalDetailsDAOImpl.checkForDuplicates(studentPersonalDetails)==true){
+        if(studentPersonalDetailsDAOImpl.checkForDuplicates(studentPersonalDetails)){
             studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
             return true;
         }
