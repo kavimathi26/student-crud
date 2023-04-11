@@ -43,10 +43,14 @@ public class StudentPersonalDetailsController {
     public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@Valid @RequestBody StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
-            studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
-            apiResponse.setMessage("Personal Details of Student Enrolled");
-            apiResponse.setErrorCode("No Error");
-            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+            if(studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails)==true) {
+                apiResponse.setMessage("Personal Details of Student Enrolled");
+                apiResponse.setErrorCode("No Error");
+                return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+            }
+            else {
+                throw new DataIntegrityViolationException("Data Already Reported");
+            }
         } catch (DataIntegrityViolationException e) {
             apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
             return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO {
     private final MongoTemplate mongoTemplate;
-    @Override
 //    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
 //        ApiResponse apiResponse = new ApiResponse();
 //        try {
@@ -39,6 +38,15 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
 //        }
 //        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
 //    }
+    @Override
+    public boolean checkForDuplicates(StudentPersonalDetails studentPersonalDetails) {
+        Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
+        if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
+                return false;
+            }
+        return true;
+    }
+    @Override
     public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
             Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
             mongoTemplate.findOne(query, StudentPersonalDetails.class);

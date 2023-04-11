@@ -5,5 +5,5 @@ import com.college.data.entity.StudentPersonalDetails;
 import org.springframework.http.ResponseEntity;
 
 public interface StudentPersonalDetailsService {
-    void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
+    boolean enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
 }

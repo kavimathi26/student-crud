@@ -13,7 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
-    public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-       studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
+    public boolean enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
+        studentPersonalDetailsDAOImpl.checkForDuplicates(studentPersonalDetails);
+        if(studentPersonalDetailsDAOImpl.checkForDuplicates(studentPersonalDetails)==true){
+            studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
