@@ -15,20 +15,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO {
     private final MongoTemplate mongoTemplate;
-
     @Override
-    public boolean checkForDuplicates(StudentPersonalDetails studentPersonalDetails) {
+    public StudentPersonalDetails findStudentDetail(StudentPersonalDetails studentPersonalDetails) {
         Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
-        if ((mongoTemplate.findOne(query, StudentPersonalDetails.class)) != null) {
-//            Objects.nonNull() *
-                return false;
-            }
-        return true;
+        return mongoTemplate.findOne(query, StudentPersonalDetails.class);
     }
     @Override
     public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-//            Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
-//            mongoTemplate.findOne(query, StudentPersonalDetails.class);
             mongoTemplate.save(studentPersonalDetails);
 //            mongoTemplate.upsert(); //create + update - based on unique index
     }

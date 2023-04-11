@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface StudentPersonalDetailsDAO {
     String PERSONAL = "student_personal_details";
+    StudentPersonalDetails findStudentDetail(StudentPersonalDetails studentPersonalDetails);
 
-    boolean checkForDuplicates(StudentPersonalDetails studentPersonalDetails);
     void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
 }
