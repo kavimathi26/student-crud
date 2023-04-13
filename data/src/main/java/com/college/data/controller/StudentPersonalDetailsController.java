@@ -5,10 +5,7 @@ import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.service.impl.StudentPersonalDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("studentPersonalDetails")
@@ -19,5 +16,9 @@ public class StudentPersonalDetailsController {
     @PostMapping("/enroll")
     public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(@RequestBody StudentPersonalDetails studentPersonalDetails) {
         return studentPersonalDetailsServiceImpl.enrollStudentPersonalDetails(studentPersonalDetails);
+    }
+    @PutMapping("/update/studentEmailId/")
+    public ResponseEntity<ApiResponse> updateStudentPersonalDetails(@RequestParam String rollNo, @RequestParam String emailId) {
+        return studentPersonalDetailsServiceImpl.updateStudentPersonalDetails(rollNo,emailId);
     }
 }

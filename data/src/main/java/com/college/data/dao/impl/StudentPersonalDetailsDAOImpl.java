@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 
@@ -15,8 +16,8 @@ import org.springframework.stereotype.Repository;
 public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO {
     private final MongoTemplate mongoTemplate;
     @Override
-    public StudentPersonalDetails findStudentDetail(StudentPersonalDetails studentPersonalDetails) {
-        Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
+    public StudentPersonalDetails findStudentDetail(String rollNo) {
+        Query query = new Query().addCriteria(Criteria.where("roll_no").is(rollNo));
         return mongoTemplate.findOne(query, StudentPersonalDetails.class);
     }
     @Override
@@ -24,7 +25,14 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
             mongoTemplate.save(studentPersonalDetails);
 //            mongoTemplate.upsert(); //create + update - based on unique index
     }
-    public void updateStudentPersonalDetails() {
-
+    public void updateStudentPersonalDetails(String rollNo, String emailId) {
+            Query query = new Query().addCriteria(Criteria.where("roll_no").is(rollNo));
+            Update update = new Update();
+            update.set("email_id",emailId);
+            mongoTemplate.upsert(query,update,StudentPersonalDetails.class);
+//            mongoTemplate.findAndModify(query,update, StudentPersonalDetails.class);
+        //update
+        //address
     }
+
 }
