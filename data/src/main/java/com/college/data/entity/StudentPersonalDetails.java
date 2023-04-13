@@ -47,5 +47,10 @@ public class StudentPersonalDetails{
         private String fatherName;
         @Field(name = "mother_name")
         private String motherName;
+        @Field(name = "created_at")
         private Date createdAt;
+        @Field(name = "updated_at")
+        private Date updatedAt;
+        @Field(name = "status")
+        private String status;
 }

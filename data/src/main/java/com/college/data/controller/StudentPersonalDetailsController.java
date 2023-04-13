@@ -21,4 +21,12 @@ public class StudentPersonalDetailsController {
     public ResponseEntity<ApiResponse> updateStudentPersonalDetails(@RequestParam String rollNo, @RequestParam String emailId) {
         return studentPersonalDetailsServiceImpl.updateStudentPersonalDetails(rollNo,emailId);
     }
+    @PutMapping("/update/studentDetails")
+    public ResponseEntity<ApiResponse> updateEntireDetailsOfAParticularStudent(@RequestBody StudentPersonalDetails studentPersonalDetails) {
+        return studentPersonalDetailsServiceImpl.updateEntireDetailsOfAParticularStudent(studentPersonalDetails);
+    }
+    @PutMapping("/update/status/")
+    private ResponseEntity<ApiResponse> updateStatus(@RequestParam String rollNo, @RequestParam String status) {
+        return studentPersonalDetailsServiceImpl.updateStatus(rollNo,status);
+    }
 }
