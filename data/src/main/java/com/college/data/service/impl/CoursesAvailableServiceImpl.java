@@ -15,11 +15,11 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class CoursesAvailableServiceImpl {
-    ApiResponse apiResponse = new ApiResponse();
     private final CoursesAvailableDAOImpl coursesAvailableDAOImpl;
     public ResponseEntity<ApiResponse> enrollCourse(CoursesAvailable coursesAvailable) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
-            if(!(Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(coursesAvailable.getCourseRegulationCode())))) {
+            if((Objects.isNull(coursesAvailableDAOImpl.findCourseAvailableDetails(coursesAvailable.getCourseRegulationCode())))) {
                 coursesAvailableDAOImpl.enrollCourse(coursesAvailable);
                 apiResponse.setMessage("Details of Course Enrolled with Course id: "+coursesAvailable.getCourseRegulationCode());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
@@ -38,6 +38,7 @@ public class CoursesAvailableServiceImpl {
     }
 
     public ResponseEntity<ApiResponse> deleteCourse(String courseRegulationCode) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             if((Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(courseRegulationCode)))) {
                 coursesAvailableDAOImpl.deleteCourse(courseRegulationCode);

@@ -15,10 +15,10 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class FacultyDetailsServiceImpl {
     private final FacultyDetailsDAOImpl facultyDetailsDAOImpl;
-    ApiResponse apiResponse = new ApiResponse();
     public ResponseEntity<ApiResponse> enrollFaculty(FacultyDetails facultyDetails) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
-            if(!(Objects.nonNull(facultyDetailsDAOImpl.findFacultyDetail(facultyDetails)))) {
+            if((Objects.isNull(facultyDetailsDAOImpl.findFacultyDetail(facultyDetails)))) {
                 facultyDetailsDAOImpl.enrollFaculty(facultyDetails);
                 apiResponse.setMessage("Details of Faculty Enrolled with Faculty id: "+facultyDetails.getFacultyId());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);

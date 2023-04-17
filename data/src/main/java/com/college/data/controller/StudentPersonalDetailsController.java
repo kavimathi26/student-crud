@@ -26,7 +26,7 @@ public class StudentPersonalDetailsController {
         return studentPersonalDetailsServiceImpl.updateEntireDetailsOfAParticularStudent(studentPersonalDetails);
     }
     @PutMapping("/update/status/")
-    private ResponseEntity<ApiResponse> updateStatus(@RequestParam String rollNo, @RequestParam String status) {
-        return studentPersonalDetailsServiceImpl.updateStatus(rollNo,status);
+    private ResponseEntity<ApiResponse> updateStatus(@RequestParam String rollNo) {
+        return studentPersonalDetailsServiceImpl.updateStatus(rollNo);
     }
 }

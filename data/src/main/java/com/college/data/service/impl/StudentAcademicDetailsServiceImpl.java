@@ -1,10 +1,8 @@
 package com.college.data.service.impl;
 
-import com.college.data.dao.impl.StudentPersonalDetailsDAOImpl;
 import com.college.data.entity.ApiResponse;
 import com.college.data.entity.StudentAcademicDetails;
 import com.college.data.dao.impl.StudentAcademicDetailsDAOImpl;
-import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.service.StudentAcademicDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,7 +20,7 @@ public class StudentAcademicDetailsServiceImpl implements StudentAcademicDetails
     public ResponseEntity<ApiResponse> enrollStudentAcademicDetails(StudentAcademicDetails studentAcademicDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
-            if(!(Objects.nonNull(studentAcademicDetailsDAOImpl.findStudentDetail(studentAcademicDetails)))) {
+            if((Objects.isNull(studentAcademicDetailsDAOImpl.findStudentDetail(studentAcademicDetails)))) {
                 studentAcademicDetailsDAOImpl.enrollStudentAcademicDetails(studentAcademicDetails);
                 apiResponse.setMessage("Academic Details of Student Enrolled with Roll no: "+studentAcademicDetails.getRollNo());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);

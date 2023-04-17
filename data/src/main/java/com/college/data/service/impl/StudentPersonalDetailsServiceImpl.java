@@ -1,5 +1,6 @@
 package com.college.data.service.impl;
 
+import com.college.data.constant.StatusChange;
 import com.college.data.entity.ApiResponse;
 import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.dao.impl.StudentPersonalDetailsDAOImpl;
@@ -16,13 +17,13 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
-    ApiResponse apiResponse = new ApiResponse();
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
     public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             if(Objects.isNull(studentPersonalDetailsDAOImpl.findStudentDetail(studentPersonalDetails.getRollNo()))) {
                 studentPersonalDetails.setCreatedAt(new Date());
-                studentPersonalDetails.setStatus("ACTIVE");
+                studentPersonalDetails.setStatus(StatusChange.ACTIVE);
                 studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
                 apiResponse.setMessage("Personal Details of Student Enrolled with Roll no: "+studentPersonalDetails.getRollNo());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
@@ -41,6 +42,7 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
     }
 
     public ResponseEntity<ApiResponse> updateStudentPersonalDetails(String rollNo, String emailId) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             if((Objects.nonNull(studentPersonalDetailsDAOImpl.findStudentDetail(rollNo)))) {
                 studentPersonalDetailsDAOImpl.updateStudentPersonalDetails(rollNo, emailId);
@@ -60,6 +62,7 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
         }
     }
     public ResponseEntity<ApiResponse> updateEntireDetailsOfAParticularStudent(StudentPersonalDetails studentPersonalDetails) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsDAOImpl.updateEntireDetailsOfAParticularStudent(studentPersonalDetails);
             apiResponse.setMessage("Details updated for "+studentPersonalDetails.getRollNo());
@@ -71,10 +74,11 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
         }
     }
 
-    public ResponseEntity<ApiResponse> updateStatus(String rollNo, String status) {
+    public ResponseEntity<ApiResponse> updateStatus(String rollNo) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             if((Objects.nonNull(studentPersonalDetailsDAOImpl.findStudentDetail(rollNo)))) {
-                studentPersonalDetailsDAOImpl.updateStatus(rollNo, status);
+                studentPersonalDetailsDAOImpl.updateStatus(rollNo);
                 apiResponse.setMessage("status for "+rollNo+" is updated");
                 return new ResponseEntity<>(apiResponse,HttpStatus.OK);
             }else {

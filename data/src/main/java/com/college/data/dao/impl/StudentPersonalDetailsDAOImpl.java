@@ -1,8 +1,10 @@
 package com.college.data.dao.impl;
 
+import com.college.data.constant.StatusChange;
 import com.college.data.dao.StudentPersonalDetailsDAO;
 import com.college.data.entity.StudentPersonalDetails;
 import lombok.RequiredArgsConstructor;
+import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,7 +16,7 @@ import java.util.Date;
 
 @Repository
 @RequiredArgsConstructor
-public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO {
+public class StudentPersonalDetailsDAOImpl extends StatusChange implements StudentPersonalDetailsDAO {
     private final MongoTemplate mongoTemplate;
     @Override
     public StudentPersonalDetails findStudentDetail(String rollNo) {
@@ -35,22 +37,14 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
 
     public void updateEntireDetailsOfAParticularStudent(StudentPersonalDetails studentPersonalDetails) {
         Query query = new Query().addCriteria(Criteria.where("roll_no").is(studentPersonalDetails.getRollNo()));
-        Update update = new Update();
-        update.set("email_id",studentPersonalDetails.getEmailId());
-        update.set("phone_number",studentPersonalDetails.getPhoneNumber());
-        update.set("address.door_number",studentPersonalDetails.getAddress().getDoorNumber());
-        update.set("address.street_name",studentPersonalDetails.getAddress().getStreetName());
-        update.set("address.city_name",studentPersonalDetails.getAddress().getCityName());
-        update.set("address.district",studentPersonalDetails.getAddress().getDistrict());
-        update.set("address.pin_code",studentPersonalDetails.getAddress().getPinCode());
-        update.set("updated_at",new Date());
+        Update update = Update.fromDocument(new Document("$set", studentPersonalDetails));
         mongoTemplate.upsert(query,update,StudentPersonalDetails.class);
     }
 
-    public void updateStatus(String rollNo, String status) {
+    public void updateStatus(String rollNo) {
         Query query = new Query().addCriteria(Criteria.where("roll_no").is(rollNo));
         Update update = new Update();
-        update.set("status",status);
+        update.set("status", StatusChange.INACTIVE);
         update.set("updated_at",new Date());
         mongoTemplate.findAndModify(query,update, StudentPersonalDetails.class);
     }
