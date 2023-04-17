@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
 public class CoursesAvailableDAOImpl implements CoursesAvailableDAO {
     private final MongoTemplate mongoTemplate;
     @Override
-    public CoursesAvailable findCourseAvailableDetails(CoursesAvailable coursesAvailable) {
-        Query query = new Query().addCriteria(Criteria.where("roll_no").is(coursesAvailable.getCourseRegulationCode()));
+    public CoursesAvailable findCourseAvailableDetails(String courseRegulationCode) {
+        Query query = new Query().addCriteria(Criteria.where("course_regulation_code").is(courseRegulationCode));
         return mongoTemplate.findOne(query, CoursesAvailable.class);
     }
     @Override
@@ -23,4 +23,8 @@ public class CoursesAvailableDAOImpl implements CoursesAvailableDAO {
         mongoTemplate.save(coursesAvailable);
     }
 
+    public void deleteCourse(String courseRegulationCode) {
+        Query query = new Query().addCriteria(Criteria.where("course_regulation_code").is(courseRegulationCode));
+        mongoTemplate.remove(Query.query(Criteria.where("course_regulation_code").is(courseRegulationCode)), CoursesAvailable.class);
+    }
 }

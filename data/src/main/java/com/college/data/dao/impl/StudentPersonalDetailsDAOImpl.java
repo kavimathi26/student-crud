@@ -29,6 +29,7 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
             Query query = new Query().addCriteria(Criteria.where("roll_no").is(rollNo));
             Update update = new Update();
             update.set("email_id",emailId);
+            update.set("updated_at",new Date());
             mongoTemplate.findAndModify(query,update, StudentPersonalDetails.class);
     }
 
@@ -50,6 +51,7 @@ public class StudentPersonalDetailsDAOImpl implements StudentPersonalDetailsDAO 
         Query query = new Query().addCriteria(Criteria.where("roll_no").is(rollNo));
         Update update = new Update();
         update.set("status",status);
+        update.set("updated_at",new Date());
         mongoTemplate.findAndModify(query,update, StudentPersonalDetails.class);
     }
 }

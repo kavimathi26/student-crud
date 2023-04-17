@@ -19,9 +19,9 @@ public class CoursesAvailableServiceImpl {
     private final CoursesAvailableDAOImpl coursesAvailableDAOImpl;
     public ResponseEntity<ApiResponse> enrollCourse(CoursesAvailable coursesAvailable) {
         try {
-            if(!(Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(coursesAvailable)))) {
+            if(!(Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(coursesAvailable.getCourseRegulationCode())))) {
                 coursesAvailableDAOImpl.enrollCourse(coursesAvailable);
-                apiResponse.setMessage("Details of Course Enrolled with Faculty id: "+coursesAvailable.getCourseRegulationCode());
+                apiResponse.setMessage("Details of Course Enrolled with Course id: "+coursesAvailable.getCourseRegulationCode());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
             }else {
                 throw new DataIntegrityViolationException("");
@@ -29,6 +29,23 @@ public class CoursesAvailableServiceImpl {
         } catch (DataIntegrityViolationException e) {
             apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
             return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+        }
+        catch (Exception e) {
+            apiResponse.setMessage(e.getMessage());
+            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
+            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<ApiResponse> deleteCourse(String courseRegulationCode) {
+        try {
+            if((Objects.nonNull(coursesAvailableDAOImpl.findCourseAvailableDetails(courseRegulationCode)))) {
+                coursesAvailableDAOImpl.deleteCourse(courseRegulationCode);
+                apiResponse.setMessage("Details of Course Deleted with Course id: "+courseRegulationCode);
+                return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+            }else {
+                throw new Exception("");
+            }
         }
         catch (Exception e) {
             apiResponse.setMessage(e.getMessage());

@@ -18,14 +18,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StudentAcademicDetailsServiceImpl implements StudentAcademicDetailsService {
     private final StudentAcademicDetailsDAOImpl studentAcademicDetailsDAOImpl;
-//    @Override
-//    public void enrollStudentAcademicDetails(StudentAcademicDetails studentAcademicDetails) {
-//             studentAcademicDetailsDAOImpl.enrollStudentAcademicDetails(studentAcademicDetails);
-//
-//    }
-    ApiResponse apiResponse = new ApiResponse();
-    private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
+    @Override
     public ResponseEntity<ApiResponse> enrollStudentAcademicDetails(StudentAcademicDetails studentAcademicDetails) {
+        ApiResponse apiResponse = new ApiResponse();
         try {
             if(!(Objects.nonNull(studentAcademicDetailsDAOImpl.findStudentDetail(studentAcademicDetails)))) {
                 studentAcademicDetailsDAOImpl.enrollStudentAcademicDetails(studentAcademicDetails);
