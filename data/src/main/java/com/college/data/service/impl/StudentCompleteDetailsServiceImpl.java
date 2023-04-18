@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentCompleteDetailsServiceImpl {
     private final StudentCompleteDetailsDAOImpl studentCompleteDetailsDAOImpl;
-    public List<StudentCompleteDetails> viewDetailsOfAParticularStudent(String rollNo) {
+    public List<Object> viewDetailsOfAParticularStudent(String rollNo) {
     return studentCompleteDetailsDAOImpl.viewDetailsOfAParticularStudent(rollNo);
     }
 

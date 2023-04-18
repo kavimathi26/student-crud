@@ -1,15 +1,14 @@
 package com.college.data.entity;
 
 import com.college.data.dao.StudentAcademicDetailsDAO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Getter
-@Setter
+
+@Data
 @Document(collection = StudentAcademicDetailsDAO.ACADEMIC)
 
 public class StudentAcademicDetails{

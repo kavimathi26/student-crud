@@ -16,7 +16,7 @@ import java.util.List;
 public class StudentCompleteDetailsController {
     private final StudentCompleteDetailsServiceImpl studentCompleteDetailsServiceImpl;
     @GetMapping("/view-details/{rollNo}")
-    public List<StudentCompleteDetails> viewDetailsOfAParticularStudent(@PathVariable String rollNo) {
+    public List<Object> viewDetailsOfAParticularStudent(@PathVariable String rollNo) {
         return studentCompleteDetailsServiceImpl.viewDetailsOfAParticularStudent(rollNo);
     }
 }

@@ -1,26 +1,17 @@
 package com.college.data.entity;
 
 import com.college.data.dao.FacultyAvailableDAO;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Data
 @Document(collection = FacultyAvailableDAO.FACULTY)
 
 public class FacultyDetails{
-    public FacultyDetails(String facultyId, String name, String degree, LocalDate dob, String passedOutYear, String department, String designation, List<String> coursesHandled) {
-        this.facultyId = facultyId;
-        this.name = name;
-        this.degree = degree;
-        this.dob = dob;
-        this.passedOutYear = passedOutYear;
-        this.department = department;
-        this.designation = designation;
-        this.coursesHandled = coursesHandled;
-    }
     @Field(name = "faculty_id")
     private String facultyId;
     @Field(name = "name")

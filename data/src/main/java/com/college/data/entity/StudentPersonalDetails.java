@@ -1,6 +1,7 @@
 package com.college.data.entity;
 
 import com.college.data.dao.StudentPersonalDetailsDAO;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,8 +13,7 @@ import java.util.Date;
 
 
 //@Data
-@Getter
-@Setter
+@Data
 @Document(collection = StudentPersonalDetailsDAO.PERSONAL)
 
 public class StudentPersonalDetails{

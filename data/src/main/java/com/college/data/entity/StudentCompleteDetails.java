@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class StudentCompleteDetails {
-    StudentPersonalDetails studentPersonalDetails;
-    StudentAcademicDetails studentAcademicDetails;
-    CoursesAvailable coursesAvailable;
-    FacultyDetails facultyDetails;
+    private StudentPersonalDetails studentPersonalDetails;
+    private StudentAcademicDetails studentAcademicDetails;
+    private CoursesAvailable coursesAvailable;
+    private FacultyDetails facultyDetails;
 }
