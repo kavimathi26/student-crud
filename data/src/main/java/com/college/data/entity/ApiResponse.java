@@ -9,4 +9,5 @@ import lombok.Data;
 public class ApiResponse {
     private String errorCode;
     private String message;
+    private Boolean success;
 }

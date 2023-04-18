@@ -18,80 +18,83 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
-    public ResponseEntity<ApiResponse> enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
+    public ApiResponse enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             if(Objects.isNull(studentPersonalDetailsDAOImpl.findStudentDetail(studentPersonalDetails.getRollNo()))) {
                 studentPersonalDetails.setCreatedAt(new Date());
                 studentPersonalDetails.setStatus(StatusChange.ACTIVE);
                 studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
-                apiResponse.setMessage("Personal Details of Student Enrolled with Roll no: "+studentPersonalDetails.getRollNo());
-                return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+                apiResponse.setMessage("Personal Details of Student Enrolled with roll no "+studentPersonalDetails.getRollNo());
+                apiResponse.setSuccess(true);
             }else {
                 throw new DataIntegrityViolationException("");
             }
         } catch (DataIntegrityViolationException e) {
             apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
-            return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+            apiResponse.setSuccess(false);
         }
         catch (Exception e) {
             apiResponse.setMessage(e.getMessage());
-            apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
-            return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+            apiResponse.setSuccess(false);
         }
+        return apiResponse;
     }
 
-    public ResponseEntity<ApiResponse> updateStudentPersonalDetails(String rollNo, String emailId) {
+    public ApiResponse updateStudentPersonalDetails(String rollNo, String emailId) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             if((Objects.nonNull(studentPersonalDetailsDAOImpl.findStudentDetail(rollNo)))) {
                 studentPersonalDetailsDAOImpl.updateStudentPersonalDetails(rollNo, emailId);
-                apiResponse.setMessage("email Id of "+rollNo+" is updated");
-                return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+                apiResponse.setMessage("e-mail id updated for "+ rollNo);
+                apiResponse.setSuccess(true);
             }else {
                 throw new NoSuchFieldException("No such data found");
             }
         }
         catch (NoSuchFieldException e) {
-            apiResponse.setMessage(e.getMessage());
-            return new ResponseEntity<>(apiResponse,HttpStatus.NO_CONTENT);
+            apiResponse.setMessage("No data found");
+            apiResponse.setSuccess(false);
         }
         catch (Exception e) {
-            apiResponse.setMessage(e.getMessage());
-            return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        apiResponse.setMessage(e.getMessage());
+        apiResponse.setSuccess(false);
+                }
+        return apiResponse;
     }
-    public ResponseEntity<ApiResponse> updateEntireDetailsOfAParticularStudent(StudentPersonalDetails studentPersonalDetails) {
+    public ApiResponse updateEntireDetailsOfAParticularStudent(StudentPersonalDetails studentPersonalDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             studentPersonalDetailsDAOImpl.updateEntireDetailsOfAParticularStudent(studentPersonalDetails);
             apiResponse.setMessage("Details updated for "+studentPersonalDetails.getRollNo());
-            return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+            apiResponse.setSuccess(true);
         }
         catch (Exception e) {
             apiResponse.setMessage(e.getMessage());
-            return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+            apiResponse.setSuccess(false);
         }
+        return apiResponse;
     }
 
-    public ResponseEntity<ApiResponse> updateStatus(String rollNo) {
+    public ApiResponse updateStatus(String rollNo) {
         ApiResponse apiResponse = new ApiResponse();
         try {
             if((Objects.nonNull(studentPersonalDetailsDAOImpl.findStudentDetail(rollNo)))) {
                 studentPersonalDetailsDAOImpl.updateStatus(rollNo);
                 apiResponse.setMessage("status for "+rollNo+" is updated");
-                return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+                apiResponse.setSuccess(true);
             }else {
                 throw new NoSuchFieldException("No such data found");
             }
         }
         catch (NoSuchFieldException e) {
             apiResponse.setMessage(e.getMessage());
-            return new ResponseEntity<>(apiResponse,HttpStatus.NO_CONTENT);
+            apiResponse.setSuccess(false);
         }
         catch (Exception e) {
             apiResponse.setMessage(e.getMessage());
-            return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+            apiResponse.setSuccess(false);
         }
+        return apiResponse;
     }
 }
