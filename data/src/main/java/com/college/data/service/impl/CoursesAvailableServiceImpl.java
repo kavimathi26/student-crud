@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -53,5 +54,9 @@ public class CoursesAvailableServiceImpl {
             apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public List<CoursesAvailable> getCourseDetailsForAParticularRollNo(String rollNo) {
+        return coursesAvailableDAOImpl.getCourseDetailsWithRollNo(rollNo);
     }
 }

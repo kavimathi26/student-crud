@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/courses")
@@ -21,5 +23,9 @@ public class CoursesAvailableController {
     @DeleteMapping("/delete/")
     public ResponseEntity<ApiResponse>  deleteCourse(@RequestParam String courseRegulationCode) {
         return coursesAvailableServiceImpl.deleteCourse(courseRegulationCode);
+    }
+    @GetMapping("/{rollNo}")
+    public List<CoursesAvailable> getCourseDetailsForAParticularRollNo(@PathVariable String rollNo) {
+        return coursesAvailableServiceImpl.getCourseDetailsForAParticularRollNo(rollNo);
     }
 }

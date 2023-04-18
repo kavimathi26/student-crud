@@ -5,5 +5,5 @@ import com.college.data.entity.StudentPersonalDetails;
 import org.springframework.http.ResponseEntity;
 
 public interface StudentPersonalDetailsService {
-    ApiResponse enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
+    void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails);
 }

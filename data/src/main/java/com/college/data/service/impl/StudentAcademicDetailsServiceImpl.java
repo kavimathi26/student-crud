@@ -20,7 +20,7 @@ public class StudentAcademicDetailsServiceImpl implements StudentAcademicDetails
     public ResponseEntity<ApiResponse> enrollStudentAcademicDetails(StudentAcademicDetails studentAcademicDetails) {
         ApiResponse apiResponse = new ApiResponse();
         try {
-            if((Objects.isNull(studentAcademicDetailsDAOImpl.findStudentDetail(studentAcademicDetails)))) {
+            if((Objects.isNull(studentAcademicDetailsDAOImpl.findStudentDetail(studentAcademicDetails.getRollNo())))) {
                 studentAcademicDetailsDAOImpl.enrollStudentAcademicDetails(studentAcademicDetails);
                 apiResponse.setMessage("Academic Details of Student Enrolled with Roll no: "+studentAcademicDetails.getRollNo());
                 return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
@@ -36,5 +36,8 @@ public class StudentAcademicDetailsServiceImpl implements StudentAcademicDetails
             apiResponse.setErrorCode(HttpStatus.EXPECTATION_FAILED.name());
             return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    public StudentAcademicDetails findStudentDetail(String rollNo) {
+        return studentAcademicDetailsDAOImpl.findStudentDetail(rollNo);
     }
 }

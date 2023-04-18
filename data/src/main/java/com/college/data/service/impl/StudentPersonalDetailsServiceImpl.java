@@ -18,27 +18,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetailsService {
     private final StudentPersonalDetailsDAOImpl studentPersonalDetailsDAOImpl;
-    public ApiResponse enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
-        ApiResponse apiResponse = new ApiResponse();
-        try {
+    public void enrollStudentPersonalDetails(StudentPersonalDetails studentPersonalDetails) {
             if(Objects.isNull(studentPersonalDetailsDAOImpl.findStudentDetail(studentPersonalDetails.getRollNo()))) {
                 studentPersonalDetails.setCreatedAt(new Date());
                 studentPersonalDetails.setStatus(StatusChange.ACTIVE);
                 studentPersonalDetailsDAOImpl.enrollStudentPersonalDetails(studentPersonalDetails);
-                apiResponse.setMessage("Personal Details of Student Enrolled with roll no "+studentPersonalDetails.getRollNo());
-                apiResponse.setSuccess(true);
             }else {
-                throw new DataIntegrityViolationException("");
+                throw new DataIntegrityViolationException("Data already exists.");
             }
-        } catch (DataIntegrityViolationException e) {
-            apiResponse.setMessage("Duplicate Entry. This detail is already Enrolled.");
-            apiResponse.setSuccess(false);
-        }
-        catch (Exception e) {
-            apiResponse.setMessage(e.getMessage());
-            apiResponse.setSuccess(false);
-        }
-        return apiResponse;
     }
 
     public ApiResponse updateStudentPersonalDetails(String rollNo, String emailId) {
@@ -96,5 +83,9 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
             apiResponse.setSuccess(false);
         }
         return apiResponse;
+    }
+
+    public StudentPersonalDetails findStudentDetail(String rollNo) {
+        return studentPersonalDetailsDAOImpl.findStudentDetail(rollNo);
     }
 }
