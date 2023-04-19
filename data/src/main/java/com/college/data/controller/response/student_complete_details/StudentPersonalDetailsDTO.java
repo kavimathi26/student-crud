@@ -1,12 +1,13 @@
 package com.college.data.controller.response.student_complete_details;
 
 import com.college.data.entity.Address;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Date;
-
+@Data
 public class StudentPersonalDetailsDTO {
     @NotBlank(message = "roll no may not be blank")
     @Field(name = "roll_no")//remove

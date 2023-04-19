@@ -1,10 +1,11 @@
 package com.college.data.controller.response.student_complete_details;
 
 import com.college.data.entity.CourseEnrolledByStudent;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
-
+@Data
 public class StudentAcademicDetailsDTO {
     @Field(name = "roll_no")
     private String rollNo;

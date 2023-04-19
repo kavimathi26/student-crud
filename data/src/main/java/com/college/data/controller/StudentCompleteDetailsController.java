@@ -1,5 +1,6 @@
 package com.college.data.controller;
 
+import com.college.data.controller.response.student_complete_details.StudentCompleteDetailsDTO;
 import com.college.data.entity.ApiResponse;
 import com.college.data.entity.StudentCompleteDetails;
 import com.college.data.entity.StudentPersonalDetails;
@@ -16,8 +17,7 @@ import java.util.List;
 public class StudentCompleteDetailsController {
     private final StudentCompleteDetailsServiceImpl studentCompleteDetailsServiceImpl;
     @GetMapping("/view-details/{rollNo}")
-    public ResponseEntity<ApiResponse> viewDetailsOfAParticularStudent(@PathVariable String rollNo) {
-        studentCompleteDetailsServiceImpl.viewDetailsOfAParticularStudent(rollNo);
-        return null;
+    public StudentCompleteDetailsDTO viewDetailsOfAParticularStudent(@PathVariable String rollNo) {
+        return studentCompleteDetailsServiceImpl.viewDetailsOfAParticularStudent(rollNo);
     }
 }
