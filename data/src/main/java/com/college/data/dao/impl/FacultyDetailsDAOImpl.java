@@ -29,6 +29,7 @@ public class FacultyDetailsDAOImpl implements FacultyAvailableDAO {
     public void enrollFaculty(FacultyDetails facultyDetails) {
             mongoTemplate.save(facultyDetails);
     }
+
     public List<FacultyDetails> getFacultyDetailsForAGivenRollNo(String RollNo) {
         List<String> courseCodes = studentAcademicDetailsDAO.findStudentDetail(RollNo).getListOfCoursesEnrolled().stream().map(CourseEnrolledByStudent::getCourseCode).collect(Collectors.toList());
         List<FacultyDetails> facultyDetailsForAparticularCourse = new ArrayList<>();
@@ -41,4 +42,10 @@ public class FacultyDetailsDAOImpl implements FacultyAvailableDAO {
         }
         return facultyDetailsForAparticularCourse;
     }
+    public List<FacultyDetails> getFacultyDetailsForAGivenCourseCode(String courseCode) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("courses_handled").in(courseCode));
+        return mongoTemplate.find(query, FacultyDetails.class);
+    }
+
 }

@@ -18,8 +18,12 @@ public class FacultyDetailsController {
     public ResponseEntity<ApiResponse> enrollFaculty(@RequestBody FacultyDetails facultyDetails) {
         return facultyDetailsServiceImpl.enrollFaculty(facultyDetails);
     }
-    @GetMapping("/{RollNo}")
+    @GetMapping("/roll-no/{RollNo}")
     public List<FacultyDetails> getFacultyDetailsForAGivenRollNo(@PathVariable String RollNo) {
         return facultyDetailsServiceImpl.getFacultyDetailsForAGivenRollNo(RollNo);
+    }
+    @GetMapping("/course-code/{courseCode}")
+    public List<FacultyDetails> getFacultyDetailsForAGivenCourseCode(@PathVariable String courseCode) {
+        return facultyDetailsServiceImpl.getFacultyDetailsForAGivenCourseCode(courseCode);
     }
 }

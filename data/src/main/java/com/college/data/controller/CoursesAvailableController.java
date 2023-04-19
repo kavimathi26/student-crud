@@ -24,8 +24,12 @@ public class CoursesAvailableController {
     public ResponseEntity<ApiResponse>  deleteCourse(@RequestParam String courseRegulationCode) {
         return coursesAvailableServiceImpl.deleteCourse(courseRegulationCode);
     }
-    @GetMapping("/{rollNo}")
+    @GetMapping("/roll-no/{rollNo}")
     public List<CoursesAvailable> getCourseDetailsForAParticularRollNo(@PathVariable String rollNo) {
         return coursesAvailableServiceImpl.getCourseDetailsForAParticularRollNo(rollNo);
+    }
+    @GetMapping("/course-code/{courseCode}")
+    public CoursesAvailable getCourseDetailsWithCourseCode(@PathVariable String courseCode) {
+        return coursesAvailableServiceImpl.getCourseDetailsWithCourseCode(courseCode);
     }
 }

@@ -59,4 +59,7 @@ public class CoursesAvailableServiceImpl {
     public List<CoursesAvailable> getCourseDetailsForAParticularRollNo(String rollNo) {
         return coursesAvailableDAOImpl.getCourseDetailsWithRollNo(rollNo);
     }
+    public CoursesAvailable getCourseDetailsWithCourseCode(String courseCode) {
+        return coursesAvailableDAOImpl.getCourseDetailsWithCourseCode(courseCode);
+    }
 }

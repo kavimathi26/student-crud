@@ -52,4 +52,9 @@ public class CoursesAvailableDAOImpl implements CoursesAvailableDAO {
         }
         return courses;
     }
+    public CoursesAvailable getCourseDetailsWithCourseCode(String courseCode) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("course_regulation_code").is(courseCode));
+        return mongoTemplate.findOne(query,CoursesAvailable.class);
+    }
 }

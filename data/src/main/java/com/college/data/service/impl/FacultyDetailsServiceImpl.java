@@ -43,4 +43,7 @@ public class FacultyDetailsServiceImpl {
     public List<FacultyDetails> getFacultyDetailsForAGivenRollNo(String rollNo) {
         return facultyDetailsDAOImpl.getFacultyDetailsForAGivenRollNo(rollNo);
     }
+    public List<FacultyDetails> getFacultyDetailsForAGivenCourseCode(String courseCode) {
+        return facultyDetailsDAOImpl.getFacultyDetailsForAGivenCourseCode(courseCode);
+    }
 }
