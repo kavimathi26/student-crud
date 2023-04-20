@@ -11,5 +11,5 @@ public class CoursesEnrolledDTO {
     private String courseTitle;
     private String courseCredit;
     private String courseBranch;
-    List<FacultyDetailsDTO> facultyDetails;
+    FacultyDetailsDTO facultyDetails;
 }

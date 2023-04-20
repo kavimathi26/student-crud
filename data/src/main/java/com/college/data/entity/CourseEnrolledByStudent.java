@@ -12,21 +12,7 @@ public class CourseEnrolledByStudent {
     private String courseCode;
     @Field(name = "marks_scored")
     private short marksScored;
+    @Field(name = "faculty_id")
+    private String facultyId;
 
-
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
-
-    public short getMarksScored() {
-        return marksScored;
-    }
-
-    public void setMarksScored(short marksScored) {
-        this.marksScored = marksScored;
-    }
 }

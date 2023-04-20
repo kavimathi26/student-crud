@@ -13,7 +13,7 @@ public class CoursesAvailable {
     @Field(name = "course_regulation_code")
     private String courseRegulationCode;
     @Field(name = "course_title")
-    private String courseTitle1;
+    private String courseTitle;
     @Field(name = "course_credit")
     private String courseCredit;
     @Field(name = "course_branch")
