@@ -2,22 +2,23 @@ package com.college.data.service.impl;
 
 import com.college.data.controller.response.student_complete_details.*;
 import com.college.data.entity.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StudentCompleteDetailsServiceImpl {
+//    @Autowired
+//    ObjectMapper objectMapper;
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsService;
     private final StudentAcademicDetailsServiceImpl studentAcademicDetailsService;
     private final CoursesAvailableServiceImpl coursesAvailableService;
     private final FacultyDetailsServiceImpl facultyDetailsService;
-
     public StudentCompleteDetailsDTO viewDetailsOfAParticularStudent(String rollNo) {
 
         StudentCompleteDetailsDTO studentCompleteDetailsDTO = new StudentCompleteDetailsDTO();
@@ -34,13 +35,12 @@ public class StudentCompleteDetailsServiceImpl {
 
         List<CoursesEnrolledDTO> coursesEnrolledDTO = new ArrayList<>();
         studentAcademicDetails.getListOfCoursesEnrolled().forEach(courseEnrolledByStudent -> {
-            CoursesEnrolledDTO coursesEnrolledDTOs = new CoursesEnrolledDTO();
-            FacultyDetailsDTO facultyDetailsDTO = new FacultyDetailsDTO();
             CoursesAvailable coursesAvailable = coursesAvailableService.getCourseDetailsWithCourseCode(courseEnrolledByStudent.getCourseCode());
             FacultyDetails facultyDetails = facultyDetailsService.getFacultyDetails(courseEnrolledByStudent.getFacultyId());
-            BeanUtils.copyProperties(facultyDetails,facultyDetailsDTO);
+            ObjectMapper objectMapper = new ObjectMapper();
+            var facultyDetailsDTO = objectMapper.convertValue(facultyDetails,FacultyDetailsDTO.class);
+            var coursesEnrolledDTOs =  objectMapper.convertValue(coursesAvailable,CoursesEnrolledDTO.class);
             coursesEnrolledDTOs.setFacultyDetails(facultyDetailsDTO);
-            BeanUtils.copyProperties(coursesAvailable,coursesEnrolledDTOs);
             coursesEnrolledDTO.add(coursesEnrolledDTOs);
         });
 
