@@ -23,8 +23,7 @@ public class StudentCompleteDetailsServiceImpl {
         StudentCompleteDetailsDTO studentCompleteDetailsDTO = new StudentCompleteDetailsDTO();
         StudentPersonalDetails studentPersonalDetails = studentPersonalDetailsService.findStudentDetail(rollNo);
         StudentAcademicDetails studentAcademicDetails = studentAcademicDetailsService.findStudentDetail(rollNo);
-        List<String> courses = studentAcademicDetails.getListOfCoursesEnrolled().stream().map(CourseEnrolledByStudent::getCourseCode).collect(Collectors.toList());
-        List<String> faculties = studentAcademicDetails.getListOfCoursesEnrolled().stream().map(CourseEnrolledByStudent::getFacultyId).collect(Collectors.toList());
+
         StudentPersonalDetailsDTO studentPersonalDetailsDTO = new StudentPersonalDetailsDTO();
         BeanUtils.copyProperties(studentPersonalDetails, studentPersonalDetailsDTO);
         studentCompleteDetailsDTO.setStudentPersonalDetails(studentPersonalDetailsDTO);
@@ -34,16 +33,17 @@ public class StudentCompleteDetailsServiceImpl {
         studentCompleteDetailsDTO.setStudentAcademicDetails(studentAcademicDetailsDTO);
 
         List<CoursesEnrolledDTO> coursesEnrolledDTO = new ArrayList<>();
-        for(int i = 0; i < courses.size(); i++) {
+        studentAcademicDetails.getListOfCoursesEnrolled().stream().forEach(courseEnrolledByStudent -> {
             CoursesEnrolledDTO coursesEnrolledDTOs = new CoursesEnrolledDTO();
             FacultyDetailsDTO facultyDetailsDTO = new FacultyDetailsDTO();
-            CoursesAvailable coursesAvailable = coursesAvailableService.getCourseDetailsWithCourseCode(courses.get(i));
-            FacultyDetails facultyDetails = facultyDetailsService.getFacultyDetails(faculties.get(i));
+            CoursesAvailable coursesAvailable = coursesAvailableService.getCourseDetailsWithCourseCode(courseEnrolledByStudent.getCourseCode());
+            FacultyDetails facultyDetails = facultyDetailsService.getFacultyDetails(courseEnrolledByStudent.getFacultyId());
             BeanUtils.copyProperties(facultyDetails,facultyDetailsDTO);
             coursesEnrolledDTOs.setFacultyDetails(facultyDetailsDTO);
             BeanUtils.copyProperties(coursesAvailable,coursesEnrolledDTOs);
             coursesEnrolledDTO.add(coursesEnrolledDTOs);
-        }
+        });
+
         studentCompleteDetailsDTO.setCoursesEnrolled(coursesEnrolledDTO);
         return studentCompleteDetailsDTO;
     }
