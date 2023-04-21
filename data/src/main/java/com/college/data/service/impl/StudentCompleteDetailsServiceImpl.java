@@ -33,7 +33,7 @@ public class StudentCompleteDetailsServiceImpl {
         studentCompleteDetailsDTO.setStudentAcademicDetails(studentAcademicDetailsDTO);
 
         List<CoursesEnrolledDTO> coursesEnrolledDTO = new ArrayList<>();
-        studentAcademicDetails.getListOfCoursesEnrolled().stream().forEach(courseEnrolledByStudent -> {
+        studentAcademicDetails.getListOfCoursesEnrolled().forEach(courseEnrolledByStudent -> {
             CoursesEnrolledDTO coursesEnrolledDTOs = new CoursesEnrolledDTO();
             FacultyDetailsDTO facultyDetailsDTO = new FacultyDetailsDTO();
             CoursesAvailable coursesAvailable = coursesAvailableService.getCourseDetailsWithCourseCode(courseEnrolledByStudent.getCourseCode());

@@ -1,8 +1,10 @@
 package com.college.data.controller.response.student_complete_details;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 
 @Data
+@JsonRootName(value = "StudentAcademicDetails")
 public class StudentAcademicDetailsDTO {
     private String rollNo;
     private String department;
