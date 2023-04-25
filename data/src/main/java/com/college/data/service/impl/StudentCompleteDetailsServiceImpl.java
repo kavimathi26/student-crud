@@ -13,8 +13,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StudentCompleteDetailsServiceImpl {
-//    @Autowired
-//    ObjectMapper objectMapper;
     private final StudentPersonalDetailsServiceImpl studentPersonalDetailsService;
     private final StudentAcademicDetailsServiceImpl studentAcademicDetailsService;
     private final CoursesAvailableServiceImpl coursesAvailableService;

@@ -4,9 +4,11 @@ import lombok.Data;
 
 import java.util.List;
 
+
 @Data
 public class StudentCompleteDetails {
     private StudentPersonalDetails studentPersonalDetails;
     private StudentAcademicDetails studentAcademicDetails;
-    private List<String> facultyIds;
+    private List<CoursesAvailable> coursesAvailable;
+    private List<FacultyDetails> facultyDetails;
 }

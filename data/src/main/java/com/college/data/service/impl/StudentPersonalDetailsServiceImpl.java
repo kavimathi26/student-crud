@@ -2,16 +2,19 @@ package com.college.data.service.impl;
 
 import com.college.data.constant.StatusChange;
 import com.college.data.entity.ApiResponse;
+import com.college.data.entity.StudentCompleteDetails;
 import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.dao.impl.StudentPersonalDetailsDAOImpl;
 import com.college.data.service.StudentPersonalDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.bson.Document;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -87,5 +90,9 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
 
     public StudentPersonalDetails findStudentDetail(String rollNo) {
         return studentPersonalDetailsDAOImpl.findStudentDetail(rollNo);
+    }
+
+    public List<StudentCompleteDetails> viewStudentDetailsUsingAggregate(String rollNo) {
+        return studentPersonalDetailsDAOImpl.viewStudentDetailsUsingAggregate(rollNo);
     }
 }

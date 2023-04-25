@@ -2,15 +2,19 @@ package com.college.data.controller;
 
 import com.college.data.constant.StatusChange;
 import com.college.data.entity.ApiResponse;
+import com.college.data.entity.StudentCompleteDetails;
 import com.college.data.entity.StudentPersonalDetails;
 import com.college.data.service.impl.StudentPersonalDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.bson.Document;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -64,5 +68,9 @@ public class StudentPersonalDetailsController {
         } else {
             return new ResponseEntity<>(apiResponse,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/view/{rollNo}")
+    private List<StudentCompleteDetails> viewStudentDetailsUsingAggregate(@PathVariable String rollNo) {
+        return studentPersonalDetailsServiceImpl.viewStudentDetailsUsingAggregate(rollNo);
     }
 }
