@@ -42,7 +42,7 @@ public class StudentPersonalDetailsDAOImpl extends StatusChange implements Stude
 
     public void updateEntireDetailsOfAParticularStudent(StudentPersonalDetails studentPersonalDetails) {
         Query query = new Query().addCriteria(Criteria.where(ROLL_NO).is(studentPersonalDetails.getRollNo()));
-        Update update = Update.fromDocument(new Document("$set", studentPersonalDetails));
+        Update update = Update.fromDocument(new Document(SET, studentPersonalDetails));
         mongoTemplate.upsert(query,update,StudentPersonalDetails.class);
     }
 
@@ -55,7 +55,7 @@ public class StudentPersonalDetailsDAOImpl extends StatusChange implements Stude
     }
 
     public StudentCompleteDetails viewStudentDetailsUsingAggregate(String rollNo) {
-        Aggregation agg = Aggregation.newAggregation(
+        Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where(ROLL_NO).is(rollNo)),
                 Aggregation.lookup(STUDENT_PERSONAL_DETAILS, ROLL_NO, ROLL_NO, PERSONAL_DETAILS),
                 Aggregation.unwind(PERSONAL_DETAILS),
@@ -69,7 +69,7 @@ public class StudentPersonalDetailsDAOImpl extends StatusChange implements Stude
                         .and(COURSES).as(COURSES_AVAILABLE_ALIAS)
                         .and(FACULTY).as(FACULTY_DETAILS_ALIAS)
         );
-        AggregationResults<StudentCompleteDetails> results = mongoTemplate.aggregate(agg, STUDENT_PERSONAL_DETAILS, StudentCompleteDetails.class);
+        AggregationResults<StudentCompleteDetails> results = mongoTemplate.aggregate(aggregation, STUDENT_PERSONAL_DETAILS, StudentCompleteDetails.class);
         return results.getMappedResults().get(0);
     }
 }

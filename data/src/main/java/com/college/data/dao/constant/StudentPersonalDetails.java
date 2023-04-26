@@ -21,7 +21,6 @@ public class StudentPersonalDetails {
     public static final String STUDENT_ACADEMIC_DETAILS_ALIAS ="studentAcademicDetails";
     public static final String COURSES_AVAILABLE_ALIAS ="coursesAvailable";
     public static final String FACULTY_DETAILS_ALIAS ="facultyDetails";
-
-
+    public static final String SET = "$set";
 
 }
