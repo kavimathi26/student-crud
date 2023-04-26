@@ -70,7 +70,7 @@ public class StudentPersonalDetailsController {
         }
     }
     @GetMapping("/view/{rollNo}")
-    private List<StudentCompleteDetails> viewStudentDetailsUsingAggregate(@PathVariable String rollNo) {
+    private StudentCompleteDetails viewStudentDetailsUsingAggregate(@PathVariable String rollNo) {
         return studentPersonalDetailsServiceImpl.viewStudentDetailsUsingAggregate(rollNo);
     }
 }

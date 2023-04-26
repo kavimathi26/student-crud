@@ -92,7 +92,7 @@ public class StudentPersonalDetailsServiceImpl implements StudentPersonalDetails
         return studentPersonalDetailsDAOImpl.findStudentDetail(rollNo);
     }
 
-    public List<StudentCompleteDetails> viewStudentDetailsUsingAggregate(String rollNo) {
+    public StudentCompleteDetails viewStudentDetailsUsingAggregate(String rollNo) {
         return studentPersonalDetailsDAOImpl.viewStudentDetailsUsingAggregate(rollNo);
     }
 }
